@@ -1,0 +1,24 @@
+vuejs的.vue文件中的style标签中的css样式，背景图路径不对？
+
+#wrapper{
+        width:100%;
+        height:100%;
+        position:fixed;
+        background-image:url(./img/open_bg.jpg)
+    }
+在.vue文件中的CSS样式中，使用背景图
+
+在webpack打包后，路径不对。
+
+
+
+解决：
+碰到同样问题，刚开始的解决办法是：
+1. 丢到data里，require进来，再在页面绑定到:src或者:style。
+后来遇到一个动态class的伪元素背景图片，弄起来比较麻烦，想到转成base64就不存在路径问题了啊。
+去看了webpack.base.conf.js里图片loader的大小限制是10kb，
+
+所以有了以下办法：
+2.压缩图片到10kb以下
+3.把10kb的限制改大
+4.直接在style里写base64的url。果然压缩了一下图片就成功了。
